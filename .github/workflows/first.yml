@@ -27,3 +27,13 @@ jobs:
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./out
+
+      - name: Node
+#       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3.0.0
+        with:
+          node-version: '14'
+          cache: 'npm'
+      - run: npm i -g @cparra/apexdocs
+      - run: npm test
+      - run: apexdocs-generate -s ./classes -t apexdocs -p global -g docsify
